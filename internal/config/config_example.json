@@ -1,0 +1,71 @@
+{
+  "server": {
+    "port": ":8080",
+    "healthCheckPath": "/health",
+    "healthCheckInterval": "5s",
+    "readTimeout": "30s",
+    "writeTimeout": "60s",
+    "idleTimeout": "120s",
+    "shutdownTimeout": "30s"
+  },
+  "redis": {
+    "addr": "localhost:6379",
+    "password": "",
+    "db": 0,
+    "poolSize": 10
+  },
+  "rateLimiter": {
+    "enabled": true,
+    "useRedis": true,
+    "tokensPerSecond": 100.0,
+    "bucketSize": 1000,
+    "keyPrefix": "llm-rate-limit:",
+    "waitTimeout": "30s",
+    "modelLimits": {
+      "gpt-4o-mini": 10.0,
+      "gpt-4o": 10.0,
+      "claude-3-opus": 5.0,
+      "claude-3-sonnet": 15.0,
+      "default": 25.0
+    }
+  },
+  "llmProvider": {
+    "defaultProvider": "openai",
+    "defaultModel": "gpt-4o-mini",
+    "providers": {
+      "openai": {
+        "baseURL": "https://api.openai.com/v1",
+        "apiKey": "YOUR_OPENAI_API_KEY",
+        "requestTimeout": "60s",
+        "maxRetries": 3,
+        "retryBackoffMin": "100ms",
+        "retryBackoffMax": "10s",
+        "organization": "YOUR_ORGANIZATION_ID",
+        "defaultParams": {
+          "temperature": 0.7,
+          "max_tokens": 500,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0
+        },
+        "models": [
+          {"name": "gpt-4o-mini", "tokenCostFn": "openai_token_cost"},
+          {"name": "gpt-4o", "tokenCostFn": "openai_token_cost"}
+        ]
+      },
+      "anthropic": {
+        "baseURL": "https://api.anthropic.com/v1",
+        "apiKey": "YOUR_ANTHROPIC_API_KEY",
+        "requestTimeout": "90s",
+        "models": [
+          {"name": "claude-3-opus", "tokenCostFn": "anthropic_token_cost"},
+          {"name": "claude-3-sonnet", "tokenCostFn": "anthropic_token_cost"}
+        ]
+      }
+    }
+  },
+  "logging": {
+    "level": "info",
+    "pretty": true
+  }
+}
