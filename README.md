@@ -26,7 +26,8 @@ The LLM Load Balancer is designed to serve as a middleware between your applicat
 - **Health Monitoring**: Endpoints for monitoring service health and queue status
 - **Long Polling**: Clients can wait for queued requests with configurable timeouts
 
-## Architecture```
+## Architecture
+```
                    +------------------------+
                    |     API Gateway        |
                    |  (SSL termination,     |
@@ -70,8 +71,8 @@ The LLM Load Balancer is designed to serve as a middleware between your applicat
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/pdmimpulse/LLM-Load-Balancer.git
-   cd LLM-Load-Balancer
+   git clone https://github.com/pdmimpulse/LLM-Request-Balancer.git
+   cd LLM-Request-Balancer
    ```
 
 2. Install dependencies:
